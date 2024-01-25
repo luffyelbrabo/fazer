@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fazer Upload do Aplicativo</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f4f4f4; /* Cor de fundo da pÃ¡gina, pode ser alterada */
+    }
+
+    h1 {
+      color: #007bff; /* Cor do texto, pode ser alterada */
+    }
+
+    form {
+      margin: 20px auto;
+      max-width: 300px;
+      background-color: #fff; /* Cor de fundo do formulÃ¡rio, pode ser alterada */
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra suave, pode ser ajustada */
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      color: #555; /* Cor do texto das labels, pode ser alterada */
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      box-sizing: border-box;
+      border: 1px solid #ddd; /* Cor da borda da caixa de entrada, pode ser alterada */
+      border-radius: 4px;
+    }
+
+    button {
+      background-color: #28a745; /* Cor de fundo do botÃ£o, pode ser alterada */
+      color: #fff; /* Cor do texto do botÃ£o, pode ser alterada */
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease; /* TransiÃ§Ã£o suave na cor de fundo */
+    }
+
+    button:hover {
+      background-color: #218838; /* Cor de fundo do botÃ£o ao passar o mouse, pode ser alterada */
+    }
+
+    .app-info {
+      margin-top: 30px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Sessão de informações do aplicativo -->
+  <h1 id="appName">Nome do Seu App</h1>
+  <img id="appLogo" src="caminho/do/seu/logo.png" alt="Logo do Seu App" width="100">
+  <div class="app-info">
+    <p>Versão: <span id="appVersion">1.0</span></p>
+    <p>Data de Upload: <span id="uploadDate">25 de Janeiro de 2024</span></p>
+    <p>Versão das Configurações: <span id="configVersion">1.0.0</span></p>
+    <p>Sobre o Aplicativo: <span id="aboutApp">Alguma Informação sobre o seu aplicativo.</span></p>
+  </div>
+
+  <!-- Sessão de upload do aplicativo -->
+  <form action="upload.php" method="post" enctype="multipart/form-data">
+    <label for="arquivo">Escolha o arquivo APK:</label>
+    <input type="file" name="arquivo" id="arquivo" accept=".apk" required>
+    <button type="submit">Fazer Upload</button>
+  </form>
+
+  <!-- Campos de Edição -->
+  <script>
+    function updateAppInfo() {
+      // Atualizar informações do aplicativo com os valores dos campos de Edição
+      document.getElementById('appName').textContent = document.getElementById('appNameInput').value;
+      document.getElementById('appLogo').src = document.getElementById('appLogoInput').value;
+      document.getElementById('appVersion').textContent = document.getElementById('appVersionInput').value;
+      document.getElementById('uploadDate').textContent = document.getElementById('uploadDateInput').value;
+      document.getElementById('configVersion').textContent = document.getElementById('configVersionInput').value;
+      document.getElementById('aboutApp').textContent = document.getElementById('aboutAppInput').value;
+    }
+  </script>
+
+  <!-- Sessão de Edição de informações do aplicativo -->
+  <h2>Editar informações do Aplicativo</h2>
+  <label for="appNameInput">Nome do App:</label>
+  <input type="text" id="appNameInput" placeholder="Nome do Seu App">
+
+  <label for="appLogoInput">URL do Logo:</label>
+  <input type="text" id="appLogoInput" placeholder="Caminho do seu logo">
+
+  <label for="appVersionInput">Versão:</label>
+  <input type="text" id="appVersionInput" placeholder="1.0">
+
+  <label for="uploadDateInput">Data de Upload:</label>
+  <input type="text" id="uploadDateInput" placeholder="25 de Janeiro de 2024">
+
+  <label for="configVersionInput">Versão das Configurações:</label>
+  <input type="text" id="configVersionInput" placeholder="1.0.0">
+
+  <label for="aboutAppInput">Sobre o Aplicativo:</label>
+  <textarea id="aboutAppInput" placeholder="Alguma Informação sobre o seu apk."></textarea>
+
+  <button type="button" onclick="updateAppInfo()">Atualizar informações</button>
+</body>
+
+</html>
