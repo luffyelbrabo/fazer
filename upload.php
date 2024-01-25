@@ -1,13 +1,11 @@
-// ...
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $defaultInfo = [
-        'defaultAppName' => 'Nome PadrÃÂ£o',
+        'defaultAppName' => 'Nome PadrÃ£o',
         'defaultAppLogo' => 'loja.dnetvpn.site/img/do/logo.png',
         'defaultAppVersion' => '1.0',
         'defaultUploadDate' => '01 de Janeiro de 2022',
         'defaultConfigVersion' => '1.0.0',
-        'defaultAboutApp' => 'InformaÃÂ§ÃÂ£o padrÃÂ£o sobre o aplicativo.',
+        'defaultAboutApp' => 'Informação padrão sobre o aplicativo.',
     ];
 
     $appName = $_POST['appName'];
@@ -17,13 +15,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $configVersion = $_POST['configVersion'];
     $aboutApp = $_POST['aboutApp'];
 
-    // DiretÃ³rio Ãºnico para todos os aplicativos
+    // Diretório Unico para todos os aplicativos
     $uploadDirectory = 'uploads/';
 
     // Verifica se a pasta existe ou a cria
     if (!file_exists($uploadDirectory)) {
-        mkdir($uploadDirectory, 0777, true);
+        mkdir($uploadDirectory, 0777, true); // Cria o diretório com permissões 0777 (leitura, escrita e execução para todos)
     }
+
+    // Define permissões específicas após criar o diretório
+    chmod($uploadDirectory, 0777);
 
     $apkPath = $uploadDirectory . basename($_FILES['arquivo']['name']);
     move_uploaded_file($_FILES['arquivo']['tmp_name'], $apkPath);
@@ -31,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Conectar ao banco de dados
     $db = new SQLite3('database.db');
 
-    // Inserir ou atualizar informaÃ§Ãµes na tabela
+    // Inserir ou atualizar informações na tabela
     $stmt = $db->prepare('INSERT OR REPLACE INTO app_info (id, appName, appLogo, appVersion, uploadDate, configVersion, aboutApp, apkPath) VALUES (NULL, :appName, :appLogo, :appVersion, :uploadDate, :configVersion, :aboutApp, :apkPath)');
     $stmt->bindValue(':appName', $appName, SQLITE3_TEXT);
     $stmt->bindValue(':appLogo', $appLogo, SQLITE3_TEXT);
@@ -42,8 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bindValue(':apkPath', $apkPath, SQLITE3_TEXT);
     $stmt->execute();
 
-    // Redirecionar para a pÃ¡gina de download
+    // Redirecionar para a pagina de download
     header('Location: download.php?appName=' . urlencode($appName));
     exit();
 }
-?>
