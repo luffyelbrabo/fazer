@@ -1,1 +1,11 @@
-
+-- Script SQL para criar a tabela app_info
+CREATE TABLE IF NOT EXISTS app_info (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    appName TEXT,
+    appLogo TEXT,
+    appVersion TEXT,
+    uploadDate TEXT,
+    configVersion TEXT,
+    aboutApp TEXT,
+    apkPath TEXT
+);
