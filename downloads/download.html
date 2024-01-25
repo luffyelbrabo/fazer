@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download do Aplicativo</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            color: #007bff;
+        }
+
+        .app-info {
+            margin-top: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <?php
+    // Obter o nome do aplicativo da consulta
+    $appName = isset($_GET['appName']) ? $_GET['appName'] : '';
+
+    if (!empty($appName)) {
+        $appFolder = 'uploads/' . $appName . '/';
+
+        if (is_dir($appFolder)) {
+            $db = new SQLite3('database.db');
+            $stmt = $db->prepare('SELECT * FROM app_info WHERE appName = :appName');
+            $stmt->bindValue(':appName', $appName, SQLITE3_TEXT);
+            $result = $stmt->execute();
+            $appInfo = $result->fetchArray(SQLITE3_ASSOC);
+
+            echo "<h1>{$appInfo['appName']}</h1>";
+            echo "<img src=\"{$appInfo['appLogo']}\" alt=\"Logo do Seu App\" width=\"100\">";
+            echo "<div class=\"app-info\">";
+            echo "<p>VersÃ£o: <span>{$appInfo['appVersion']}</span></p>";
+            echo "<p>Data de Upload: <span>{$appInfo['uploadDate']}</span></p>";
+            echo "<p>VersÃ£o das ConfiguraÃ§Ãµes: <span>{$appInfo['configVersion']}</span></p>";
+            echo "<p>Sobre o Aplicativo: <span>{$appInfo['aboutApp']}</span></p>";
+            echo "</div>";
+
+            // Adicionar link para download do APK
+            echo "<p><a href=\"{$appInfo['apkPath']}\" download>Baixar Aplicativo</a></p>";
+        } else {
+            echo "<p>Aplicativo nÃ£o encontrado.</p>";
+        }
+    } else {
+        echo "<p>Nome do aplicativo nÃ£o fornecido.</p>";
+    }
+    ?>
+</body>
+
+</html>
