@@ -92,22 +92,64 @@
 
   <!-- Campos de Edição -->
   <script>
-    function updateAppInfo() {
-      // Atualizar informações do aplicativo com os valores dos campos de Edição      
+  // FunÃ§Ã£o para alternar entre a entrada da URL e o upload da imagem
+  function toggleLogoInput() {
+    var logoOption = document.getElementById('logoOption').value;
+    document.getElementById('logoUrlInput').style.display = (logoOption === 'url') ? 'block' : 'none';
+    document.getElementById('logoUploadInput').style.display = (logoOption === 'upload') ? 'block' : 'none';
+  }
+
+  // FunÃ§Ã£o atualizada para considerar a escolha do usuÃ¡rio
+  function updateAppInfo() {
+    var logoOption = document.getElementById('logoOption').value;
+
+    if (logoOption === 'url') {
       document.getElementById('appLogo').src = document.getElementById('appLogoInput').value;
-      document.getElementById('appName').textContent = document.getElementById('appNameInput').value; 
-      document.getElementById('appVersion').textContent = document.getElementById('appVersionInput').value;
-      document.getElementById('uploadDate').textContent = document.getElementById('uploadDateInput').value;
-      document.getElementById('configVersion').textContent = document.getElementById('configVersionInput').value;
-      document.getElementById('aboutApp').textContent = document.getElementById('aboutAppInput').value;
+    } else if (logoOption === 'upload') {
+      var logoUploadInput = document.getElementById('logoUpload');
+      var logoFile = logoUploadInput.files[0];
+
+      if (logoFile) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+          document.getElementById('appLogo').src = e.target.result;
+        };
+
+        reader.readAsDataURL(logoFile);
+      }
     }
-  </script>
+
+    // Restante do cÃ³digo para atualizar outras informaÃ§Ãµes
+    document.getElementById('appName').textContent = document.getElementById('appNameInput').value;
+    document.getElementById('appVersion').textContent = document.getElementById('appVersionInput').value;
+    document.getElementById('uploadDate').textContent = document.getElementById('uploadDateInput').value;
+    document.getElementById('configVersion').textContent = document.getElementById('configVersionInput').value;
+    document.getElementById('aboutApp').textContent = document.getElementById('aboutAppInput').value;
+  }
+</script>
 
   <!-- Sessão de Edição de informações do aplicativo -->
   <h2>Editar informações do Aplicativo</h2>  
 
+  <!-- Adicione a caixa de seleÃ§Ã£o para escolher entre URL e Upload -->
+<label for="logoOption">Escolha a origem do Logo:</label>
+<select id="logoOption" onchange="toggleLogoInput()">
+  <option value="url">URL</option>
+  <option value="upload">Upload</option>
+</select>
+
+<!-- Adicione o elemento para inserir a URL do logo -->
+<div id="logoUrlInput" style="display: none;">
   <label for="appLogoInput">URL do Logo:</label>
   <input type="text" id="appLogoInput" placeholder="Caminho do seu logo">
+</div>
+
+<!-- Adicione o elemento para fazer o upload da imagem -->
+<div id="logoUploadInput" style="display: none;">
+  <label for="logoUpload">Upload do Logo:</label>
+  <input type="file" id="logoUpload" accept="image/*">
+</div>
   
 <label for="appNameInput">Nome do App:</label>
   <input type="text" id="appNameInput" placeholder="Nome do Seu App">

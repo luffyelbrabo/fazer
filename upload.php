@@ -1,3 +1,4 @@
+<?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $defaultInfo = [
         'defaultAppName' => 'Nome PadrÃ£o',
@@ -5,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'defaultAppVersion' => '1.0',
         'defaultUploadDate' => '01 de Janeiro de 2022',
         'defaultConfigVersion' => '1.0.0',
-        'defaultAboutApp' => 'Informação padrão sobre o aplicativo.',
+        'defaultAboutApp' => 'InformaÃ§Ã£o padrÃ£o sobre o aplicativo.',
     ];
 
     $appName = $_POST['appName'];
@@ -15,15 +16,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $configVersion = $_POST['configVersion'];
     $aboutApp = $_POST['aboutApp'];
 
-    // Diretório Unico para todos os aplicativos
+    // DiretÃ³rio Ãºnico para todos os aplicativos
     $uploadDirectory = 'uploads/';
 
     // Verifica se a pasta existe ou a cria
     if (!file_exists($uploadDirectory)) {
-        mkdir($uploadDirectory, 0777, true); // Cria o diretório com permissões 0777 (leitura, escrita e execução para todos)
+        mkdir($uploadDirectory, 0777, true); // Cria o diretÃ³rio com permissÃµes 0777 (leitura, escrita e execuÃ§Ã£o para todos)
     }
 
-    // Define permissões específicas após criar o diretório
+    // Define permissÃµes especÃ­ficas apÃ³s criar o diretÃ³rio
     chmod($uploadDirectory, 0777);
 
     $apkPath = $uploadDirectory . basename($_FILES['arquivo']['name']);
@@ -32,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Conectar ao banco de dados
     $db = new SQLite3('database.db');
 
-    // Inserir ou atualizar informações na tabela
+    // Inserir ou atualizar informaÃ§Ãµes na tabela
     $stmt = $db->prepare('INSERT OR REPLACE INTO app_info (id, appName, appLogo, appVersion, uploadDate, configVersion, aboutApp, apkPath) VALUES (NULL, :appName, :appLogo, :appVersion, :uploadDate, :configVersion, :aboutApp, :apkPath)');
     $stmt->bindValue(':appName', $appName, SQLITE3_TEXT);
     $stmt->bindValue(':appLogo', $appLogo, SQLITE3_TEXT);
@@ -43,7 +44,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bindValue(':apkPath', $apkPath, SQLITE3_TEXT);
     $stmt->execute();
 
-    // Redirecionar para a pagina de download
-    header('Location: download.php?appName=' . urlencode($appName));
+    // Redirecionar para a pÃ¡gina de download
+    header('Location: download.php');
     exit();
 }
+?>
