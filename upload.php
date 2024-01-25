@@ -1,5 +1,12 @@
 <?php
 // upload.php
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    header('Access-Control-Allow-Origin: *');
+    header('Access-Control-Allow-Methods: POST, OPTIONS');
+    header('Access-Control-Allow-Headers: Content-Type');
+    header('Access-Control-Max-Age: 86400');
+    exit;
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Processar o formulário de upload
