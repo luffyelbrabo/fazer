@@ -65,8 +65,8 @@
 
 <body>
   <!-- Sessão de informações do aplicativo -->
-  <h1 id="appName">Nome do Seu App</h1>
-  <img id="appLogo" src="caminho/do/seu/logo.png" alt="Logo do Seu App" width="100">
+  <img id="appLogo" src="loja.dnetvpn.site/img/logo.png" alt="Logo do Seu App" width="100">
+  <h2 id="appName">Nome do Seu App</h2>
   <div class="app-info">
     <p>Versão: <span id="appVersion">1.0</span></p>
     <p>Data de Upload: <span id="uploadDate">25 de Janeiro de 2024</span></p>
@@ -84,9 +84,9 @@
   <!-- Campos de Edição -->
   <script>
     function updateAppInfo() {
-      // Atualizar informações do aplicativo com os valores dos campos de Edição
-      document.getElementById('appName').textContent = document.getElementById('appNameInput').value;
+      // Atualizar informações do aplicativo com os valores dos campos de Edição      
       document.getElementById('appLogo').src = document.getElementById('appLogoInput').value;
+      document.getElementById('appName').textContent = document.getElementById('appNameInput').value; 
       document.getElementById('appVersion').textContent = document.getElementById('appVersionInput').value;
       document.getElementById('uploadDate').textContent = document.getElementById('uploadDateInput').value;
       document.getElementById('configVersion').textContent = document.getElementById('configVersionInput').value;
@@ -95,12 +95,13 @@
   </script>
 
   <!-- Sessão de Edição de informações do aplicativo -->
-  <h2>Editar informações do Aplicativo</h2>
-  <label for="appNameInput">Nome do App:</label>
-  <input type="text" id="appNameInput" placeholder="Nome do Seu App">
+  <h2>Editar informações do Aplicativo</h2>  
 
   <label for="appLogoInput">URL do Logo:</label>
   <input type="text" id="appLogoInput" placeholder="Caminho do seu logo">
+  
+<label for="appNameInput">Nome do App:</label>
+  <input type="text" id="appNameInput" placeholder="Nome do Seu App">
 
   <label for="appVersionInput">Versão:</label>
   <input type="text" id="appVersionInput" placeholder="1.0">

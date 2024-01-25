@@ -3,7 +3,7 @@
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $defaultInfo = [
         'defaultAppName' => 'Nome PadrÃÂ£o',
-        'defaultAppLogo' => 'caminho/do/logo.png',
+        'defaultAppLogo' => 'loja.dnetvpn.site/img/do/logo.png',
         'defaultAppVersion' => '1.0',
         'defaultUploadDate' => '01 de Janeiro de 2022',
         'defaultConfigVersion' => '1.0.0',
