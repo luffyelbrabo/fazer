@@ -4,6 +4,9 @@
 // Caminho da pasta uploads
 $uploadDirectory = 'uploads/';
 
+// Desativa o cache para a pÃ¡gina upload.php
+header("Cache-Control: no-cache, must-revalidate");
+
 // Verifica se a pasta existe ou a cria
 if (!file_exists($uploadDirectory)) {
     mkdir($uploadDirectory, 0777, true); // Certifique-se de ajustar as permissÃµes conforme necessÃ¡rio
