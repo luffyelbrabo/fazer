@@ -1,7 +1,8 @@
--- Script SQL para criar a tabela app_info
-CREATE TABLE IF NOT EXISTS app_info (
+-- CriaÃ§Ã£o da nova tabela app_info com a coluna logoSource
+CREATE TABLE IF NOT EXISTS app_info_new (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     appName TEXT,
+    logoSource TEXT,
     appLogo TEXT,
     appVersion TEXT,
     uploadDate TEXT,
@@ -9,3 +10,16 @@ CREATE TABLE IF NOT EXISTS app_info (
     aboutApp TEXT,
     apkPath TEXT
 );
+
+-- Copia os dados da tabela antiga para a nova tabela
+INSERT INTO app_info_new (appName, appLogo, appVersion, uploadDate, configVersion, aboutApp, apkPath)
+SELECT appName, appLogo, appVersion, uploadDate, configVersion, aboutApp, apkPath FROM app_info;
+
+-- Atualiza a coluna logoSource com um valor padrÃ£o (por exemplo, 'url')
+UPDATE app_info_new SET logoSource = 'url';
+
+-- Remove a tabela antiga
+DROP TABLE app_info;
+
+-- Renomeia a nova tabela para o nome original
+ALTER TABLE app_info_new RENAME TO app_info;
